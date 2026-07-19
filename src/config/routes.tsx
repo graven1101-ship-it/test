@@ -55,11 +55,11 @@ export interface RouteConfig {
 }
 
 export const routes: RouteConfig[] = [
-  // Default route - redirect to dashboard
-  // Use relative path "dashboard" instead of "/dashboard" for basename compatibility
+  // Default route - redirect to sign-in
+  // Use relative path "auth/sign-in" instead of "/auth/sign-in" for basename compatibility
   {
     path: "/",
-    element: <Navigate to="dashboard" replace />
+    element: <Navigate to="auth/sign-in" replace />
   },
 
   // Landing Page
