@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 import { z } from "zod"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -33,6 +34,7 @@ export function LoginForm1({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const navigate = useNavigate()
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -40,6 +42,10 @@ export function LoginForm1({
       password: "password",
     },
   })
+
+  const onSubmit = () => {
+    navigate("/dashboard")
+  }
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -52,7 +58,7 @@ export function LoginForm1({
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form action="/">
+            <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="grid gap-6">
                 <div className="grid gap-4">
                   <FormField
