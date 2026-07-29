@@ -22,13 +22,13 @@ export function LoginForm3({
                   <div className="bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-md">
                     <Logo size={24} />
                   </div>
-                  <span className="text-xl">ShadcnStore</span>
+                  <span className="text-xl"> PMS FINANCE</span>
                 </a>
               </div>
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
                 <p className="text-muted-foreground text-balance">
-                  Login to your ShadcnStore account
+                  Login to your PMS FINANCE account
                 </p>
               </div>
               <div className="grid gap-3">
@@ -98,11 +98,11 @@ export function LoginForm3({
               </div>
             </div>
           </form>
-          <div className="bg-muted relative hidden md:block">
+          <div className="bg-muted relative hidden md:flex items-center justify-center bg-white dark:bg-neutral-900 p-8">
             <img
-              src="https://ui.shadcn.com/placeholder.svg"
-              alt="Image"
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.95] dark:invert"
+              src="/logo.png"
+              alt="PMS Logo"
+              className="max-w-full max-h-full object-contain filter dark:brightness-95"
             />
           </div>
         </CardContent>
