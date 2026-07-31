@@ -86,6 +86,10 @@ const data = {
           url: "/cash-management",
         },
         {
+          title: "Cashier Terminal",
+          url: "/cashier",
+        },
+        {
           title: "Financial Reporting & Analytics",
           url: "/financial-reporting-analytics",
         },
