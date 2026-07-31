@@ -19,6 +19,10 @@ const DisbursementManagement = lazy(() => import('@/app/disbursement-management/
 const CollectionManagement = lazy(() => import('@/app/collection-management/page'))
 const BudgetManagement = lazy(() => import('@/app/budget-management/page'))
 const CashManagement = lazy(() => import('@/app/cash-management/page'))
+const Cashier = lazy(() => import('@/app/cashier/index'))
+const Accountant = lazy(() => import('@/app/accountant/index'))
+const Admin = lazy(() => import('@/app/admin/index'))
+const AccountSs = lazy(() => import('@/app/account-ss/page'))
 const FinancialReportingAnalytics = lazy(() => import('@/app/financial-reporting-analytics/page'))
 const TaxManagement = lazy(() => import('@/app/tax-management/page'))
 
@@ -55,11 +59,11 @@ export interface RouteConfig {
 }
 
 export const routes: RouteConfig[] = [
-  // Default route - redirect to sign-in
-  // Use relative path "auth/sign-in" instead of "/auth/sign-in" for basename compatibility
+  // Default route - redirect to sign-in-3
+  // Use relative path "auth/sign-in-3" instead of "/auth/sign-in-3" for basename compatibility
   {
     path: "/",
-    element: <Navigate to="auth/sign-in" replace />
+    element: <Navigate to="auth/sign-in-3" replace />
   },
 
   // Landing Page
@@ -136,6 +140,22 @@ export const routes: RouteConfig[] = [
   {
     path: "/cash-management",
     element: <CashManagement />
+  },
+  {
+    path: "/cashier",
+    element: <Cashier />
+  },
+  {
+    path: "/accountant",
+    element: <Accountant />
+  },
+  {
+    path: "/admin",
+    element: <Admin />
+  },
+  {
+    path: "/account-ss",
+    element: <AccountSs />
   },
   {
     path: "/financial-reporting-analytics",

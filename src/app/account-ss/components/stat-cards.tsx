@@ -1,82 +1,79 @@
+"use client"
+
 import { Card, CardContent } from "@/components/ui/card"
-import {Users, CreditCard, UserCheck, Clock5, TrendingUp, TrendingDown, ArrowUpRight} from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { cn } from '@/lib/utils'
+import { Layers, CheckCircle2, UserCheck, AlertOctagon } from "lucide-react"
 
+interface StatCardsProps {
+  totalSubsystems: number
+  totalModules: number
+  assignedModules: number
+  activeAccountants: number
+  overloadedCount: number
+}
 
-const performanceMetrics = [
-  {
-    title: 'Total Users',
-    current: '$2.4M',
-    previous: '$1.8M',
-    growth: 33.3,
-    icon: Users,
-  },
-  {
-    title: 'Paid Users',
-    current: '12.5K',
-    previous: '9.2K',
-    growth: 35.9,
-    icon: CreditCard,
-  },
-  {
-    title: 'Active Users',
-    current: '8.9k',
-    previous: '6.7k',
-    growth: 32.8,
-    icon: UserCheck,
-  },
-  {
-    title: 'Pending Users',
-    current: '17%',
-    previous: '24%',
-    growth: -8.0,
-    icon: Clock5,
-  },
-]
+export function StatCards({
+  totalSubsystems,
+  totalModules,
+  assignedModules,
+  activeAccountants,
+  overloadedCount,
+}: StatCardsProps) {
+  const coveragePercent = totalModules > 0 ? Math.round((assignedModules / totalModules) * 100) : 0
 
-export function StatCards() {
+  const stats = [
+    {
+      title: "Subsystems Managed",
+      value: totalSubsystems,
+      description: "Across 10 key operational domains",
+      icon: Layers,
+      color: "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/20",
+    },
+    {
+      title: "Module Assignment Coverage",
+      value: `${assignedModules} / ${totalModules}`,
+      description: `${coveragePercent}% of modules have accountants`,
+      icon: CheckCircle2,
+      color: "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/20",
+    },
+    {
+      title: "Active Accountants",
+      value: activeAccountants,
+      description: "Holding 1 or more module assignments",
+      icon: UserCheck,
+      color: "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/20",
+    },
+    {
+      title: "Overload Status Alert",
+      value: overloadedCount > 0 ? `${overloadedCount} Alert${overloadedCount > 1 ? "s" : ""}` : "Healthy",
+      description: overloadedCount > 0 ? "Accountants with >5 modules assigned" : "All resource workloads balanced",
+      icon: AlertOctagon,
+      color: overloadedCount > 0 
+        ? "text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 animate-pulse" 
+        : "text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/20",
+    },
+  ]
+
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {performanceMetrics.map((metric, index) => (
-        <Card key={index} className='border'>
-          <CardContent className='space-y-4'>
-            <div className='flex items-center justify-between'>
-              <metric.icon className='text-muted-foreground size-6' />
-              <Badge
-                variant='outline'
-                className={cn(
-                  metric.growth >= 0
-                    ? 'border-green-200 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-950/20 dark:text-green-400'
-                    : 'border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950/20 dark:text-red-400',
-                )}
-              >
-                {metric.growth >= 0 ? (
-                  <>
-                    <TrendingUp className='me-1 size-3' />
-                    {metric.growth >= 0 ? '+' : ''}
-                    {metric.growth}%
-                  </>
-                ) : (
-                  <>
-                    <TrendingDown className='me-1 size-3' />
-                    {metric.growth}%
-                  </>
-                )}
-              </Badge>
-            </div>
-
-            <div className='space-y-2'>
-              <p className='text-muted-foreground text-sm font-medium'>{metric.title}</p>
-              <div className='text-2xl font-bold'>{metric.current}</div>
-              <div className='text-muted-foreground flex items-center gap-2 text-sm'>
-                <span>from {metric.previous}</span>
-                <ArrowUpRight className='size-3' />
+      {stats.map((stat, index) => {
+        const Icon = stat.icon
+        return (
+          <Card key={index} className="border hover:shadow-sm transition-all duration-200">
+            <CardContent className="p-5 flex items-center justify-between">
+              <div className="space-y-1">
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                  {stat.title}
+                </p>
+                <div className="text-2xl font-bold tracking-tight">{stat.value}</div>
+                <p className="text-xs text-muted-foreground">{stat.description}</p>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
+              <div className={`p-3 rounded-xl shrink-0 ${stat.color}`}>
+                <Icon className="size-6 stroke-[1.5]" />
+              </div>
+            </CardContent>
+          </Card>
+        )
+      })}
     </div>
   )
 }
