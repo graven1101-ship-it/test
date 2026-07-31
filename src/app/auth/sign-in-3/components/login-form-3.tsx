@@ -7,8 +7,10 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Logo } from "@/components/logo"
 import { useState, useRef, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 function RoleSelector() {
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState<string>("Select role")
   const ref = useRef<HTMLDivElement | null>(null)
@@ -54,6 +56,13 @@ function RoleSelector() {
                 onClick={() => {
                   setSelected(r)
                   setOpen(false)
+                  if (r === 'Cashier') {
+                    navigate('/cashier')
+                  } else if (r === 'Accountant') {
+                    navigate('/accountant')
+                  } else if (r === 'Admin') {
+                    navigate('/admin')
+                  }
                 }}
                 className="w-full text-left px-3 py-2 text-sm hover:bg-accent"
               >

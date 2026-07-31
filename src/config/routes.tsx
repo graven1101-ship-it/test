@@ -19,6 +19,9 @@ const DisbursementManagement = lazy(() => import('@/app/disbursement-management/
 const CollectionManagement = lazy(() => import('@/app/collection-management/page'))
 const BudgetManagement = lazy(() => import('@/app/budget-management/page'))
 const CashManagement = lazy(() => import('@/app/cash-management/page'))
+const Cashier = lazy(() => import('@/app/cashier/index'))
+const Accountant = lazy(() => import('@/app/accountant/index'))
+const Admin = lazy(() => import('@/app/admin/index'))
 const AccountSs = lazy(() => import('@/app/account-ss/page'))
 const FinancialReportingAnalytics = lazy(() => import('@/app/financial-reporting-analytics/page'))
 const TaxManagement = lazy(() => import('@/app/tax-management/page'))
@@ -137,6 +140,18 @@ export const routes: RouteConfig[] = [
   {
     path: "/cash-management",
     element: <CashManagement />
+  },
+  {
+    path: "/cashier",
+    element: <Cashier />
+  },
+  {
+    path: "/accountant",
+    element: <Accountant />
+  },
+  {
+    path: "/admin",
+    element: <Admin />
   },
   {
     path: "/account-ss",
