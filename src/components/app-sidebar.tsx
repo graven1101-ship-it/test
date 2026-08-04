@@ -63,7 +63,20 @@ const data = {
         },
         {
           title: "Accounts Payable (AP)",
-          url: "/accounts-payable",
+          items: [
+            {
+              title: "Overview",
+              url: "/accounts-payable",
+            },
+            {
+              title: "Payroll",
+              url: "/accounts-payable",
+            },
+            {
+              title: "Tax Management",
+              url: "/tax-management",
+            },
+          ],
         },
         {
           title: "Accounts Receivable (AR)",
