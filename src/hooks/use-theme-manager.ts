@@ -75,6 +75,41 @@ export function useThemeManager() {
     setBrandColorsValues(newValues)
   }, [])
 
+  const darkThemeOverrides = React.useMemo(() => ({
+    background: "#0F1B26",
+    foreground: "#E3EDF5",
+    card: "#16222E",
+    "card-foreground": "#E3EDF5",
+    popover: "#16222E",
+    "popover-foreground": "#E3EDF5",
+    primary: "#33A1E6",
+    "primary-foreground": "#0F1B26",
+    secondary: "#1D2A37",
+    "secondary-foreground": "#E3EDF5",
+    muted: "#1D2A37",
+    "muted-foreground": "#90A7B9",
+    accent: "#33A1E6",
+    "accent-foreground": "#0F1B26",
+    destructive: "#ef4444",
+    "destructive-foreground": "#E3EDF5",
+    border: "rgba(144, 167, 185, 0.12)",
+    input: "rgba(144, 167, 185, 0.12)",
+    ring: "#33A1E6",
+    "chart-1": "#33A1E6",
+    "chart-2": "#007DCC",
+    "chart-3": "#486F91",
+    "chart-4": "#90A7B9",
+    "chart-5": "#1D2A37",
+    sidebar: "#131E29",
+    "sidebar-foreground": "#E3EDF5",
+    "sidebar-primary": "#33A1E6",
+    "sidebar-primary-foreground": "#0F1B26",
+    "sidebar-accent": "#1D2A37",
+    "sidebar-accent-foreground": "#E3EDF5",
+    "sidebar-border": "rgba(144, 167, 185, 0.12)",
+    "sidebar-ring": "#33A1E6",
+  }), [])
+
   const applyTheme = React.useCallback((themeValue: string, darkMode: boolean) => {
     const theme = colorThemes.find(t => t.value === themeValue)
     if (!theme) return
@@ -82,36 +117,39 @@ export function useThemeManager() {
     // Reset and apply theme variables
     resetTheme()
     const styles = darkMode ? theme.preset.styles.dark : theme.preset.styles.light
+    const finalStyles = darkMode ? { ...styles, ...darkThemeOverrides } : styles
     const root = document.documentElement
 
-    Object.entries(styles).forEach(([key, value]) => {
+    Object.entries(finalStyles).forEach(([key, value]) => {
       root.style.setProperty(`--${key}`, value)
     })
 
     // Update brand colors values when theme changes
-    updateBrandColorsFromTheme(styles)
-  }, [resetTheme, updateBrandColorsFromTheme])
+    updateBrandColorsFromTheme(finalStyles)
+  }, [darkThemeOverrides, resetTheme, updateBrandColorsFromTheme])
 
   const applyTweakcnTheme = React.useCallback((themePreset: ThemePreset, darkMode: boolean) => {
     // Reset and apply theme variables
     resetTheme()
     const styles = darkMode ? themePreset.styles.dark : themePreset.styles.light
+    const finalStyles = darkMode ? { ...styles, ...darkThemeOverrides } : styles
     const root = document.documentElement
 
-    Object.entries(styles).forEach(([key, value]) => {
+    Object.entries(finalStyles).forEach(([key, value]) => {
       root.style.setProperty(`--${key}`, value)
     })
 
     // Update brand colors values when theme changes
-    updateBrandColorsFromTheme(styles)
-  }, [resetTheme, updateBrandColorsFromTheme])
+    updateBrandColorsFromTheme(finalStyles)
+  }, [darkThemeOverrides, resetTheme, updateBrandColorsFromTheme])
 
   const applyImportedTheme = React.useCallback((themeData: ImportedTheme, darkMode: boolean) => {
     const root = document.documentElement
     const themeVars = darkMode ? themeData.dark : themeData.light
+    const finalThemeVars = darkMode ? { ...themeVars, ...darkThemeOverrides } : themeVars
     
     // Apply all variables from the theme
-    Object.entries(themeVars).forEach(([variable, value]) => {
+    Object.entries(finalThemeVars).forEach(([variable, value]) => {
       root.style.setProperty(`--${variable}`, value)
     })
     
@@ -119,12 +157,12 @@ export function useThemeManager() {
     const newBrandColors: Record<string, string> = {}
     baseColors.forEach(color => {
       const varName = color.cssVar.replace('--', '')
-      if (themeVars[varName]) {
-        newBrandColors[color.cssVar] = themeVars[varName]
+      if (finalThemeVars[varName]) {
+        newBrandColors[color.cssVar] = finalThemeVars[varName]
       }
     })
     setBrandColorsValues(newBrandColors)
-  }, [])
+  }, [darkThemeOverrides])
 
   const applyRadius = (radius: string) => {
     document.documentElement.style.setProperty('--radius', radius)

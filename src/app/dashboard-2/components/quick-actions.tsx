@@ -7,7 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 export function QuickActions() {
   return (
     <div className="flex items-center space-x-2">
-      <Button className="cursor-pointer">
+      <Button className="bg-[#e85115] text-white hover:bg-[#e85115]/90 cursor-pointer">
         <Plus className="h-4 w-4 mr-2" />
         New Sale
       </Button>
