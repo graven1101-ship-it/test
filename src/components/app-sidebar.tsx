@@ -53,7 +53,7 @@ const data = {
         },
       ],
     },
-    
+
     {
       label: "Sub Modules",
       items: [
@@ -63,7 +63,7 @@ const data = {
         },
         {
           title: "Accounts Payable (AP)",
-            url: "/accounts-payable",
+          url: "/accounts-payable",
           items: [
             {
               title: "Overview",
@@ -118,7 +118,7 @@ const data = {
       ],
     },
 
-{
+    {
       label: "Apps",
       items: [
         {
