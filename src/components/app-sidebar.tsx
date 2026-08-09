@@ -53,7 +53,7 @@ const data = {
         },
       ],
     },
-    
+
     {
       label: "Sub Modules",
       items: [
@@ -64,6 +64,20 @@ const data = {
         {
           title: "Accounts Payable (AP)",
           url: "/accounts-payable",
+          items: [
+            {
+              title: "Overview",
+              url: "/accounts-payable",
+            },
+            {
+              title: "Payroll",
+              url: "/accounts-payable",
+            },
+            {
+              title: "Tax Management",
+              url: "/tax-management",
+            },
+          ],
         },
         {
           title: "Accounts Receivable (AR)",
@@ -104,7 +118,7 @@ const data = {
       ],
     },
 
-{
+    {
       label: "Apps",
       items: [
         {
@@ -268,11 +282,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link to="/dashboard">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground border-none ring-0 shadow-none">
                   <Logo size={24} className="text-current" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">ShadcnStore</span>
+                  <span className="truncate font-medium">FINANCE</span>
                   <span className="truncate text-xs">Admin Dashboard</span>
                 </div>
               </Link>
