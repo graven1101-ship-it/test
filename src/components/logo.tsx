@@ -1,6 +1,7 @@
 import * as React from "react"
+import darkModeImage from "../assets/darkMODE.jpg"
 
-const logoSrc = new URL("../assets/pmsLOGO.png", import.meta.url).href
+const logoSrc = darkModeImage
 
 interface LogoProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   size?: number
