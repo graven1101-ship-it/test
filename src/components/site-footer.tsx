@@ -7,8 +7,8 @@ export function SiteFooter() {
       <div className="px-4 py-6 lg:px-6">
         <div className="flex flex-col items-center justify-center space-y-2 text-center">
           <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-            <span>Made with</span>
-            <Heart className="h-4 w-4 fill-red-500 text-red-500" />
+            <span>Made </span>
+          
             <span>by</span>
             <Link
               to="https://shadcnstore.com"
@@ -16,11 +16,11 @@ export function SiteFooter() {
               rel="noopener noreferrer"
               className="font-medium text-foreground hover:text-primary transition-colors"
             >
-              ShadcnStore Team
+              Raven Team
             </Link>
           </div>
           <p className="text-xs text-muted-foreground">
-            Building beautiful, accessible blocks, templates and dashboards for modern web applications.
+            if site .
           </p>
         </div>
       </div>
