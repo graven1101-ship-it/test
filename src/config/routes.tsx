@@ -32,6 +32,7 @@ const TaxManagement = lazy(() => import('@/app/tax-management/page'))
 const SignIn = lazy(() => import('@/app/auth/sign-in/page'))
 const SignIn2 = lazy(() => import('@/app/auth/sign-in-2/page'))
 const SignIn3 = lazy(() => import('@/app/auth/sign-in-3/page'))
+const SignIn3Custom = lazy(() => import('@/sign-in-3/page'))
 const SignUp = lazy(() => import('@/app/auth/sign-up/page'))
 const SignUp2 = lazy(() => import('@/app/auth/sign-up-2/page'))
 const SignUp3 = lazy(() => import('@/app/auth/sign-up-3/page'))
@@ -68,7 +69,13 @@ export const routes: RouteConfig[] = [
   // Default route - redirect to sign-in-3
   {
     path: "/",
-    element: <Navigate to="auth/sign-in-3" replace />
+    element: <Navigate to="sign-in-3" replace />
+  },
+
+  // Custom Sign-in Page
+  {
+    path: "/sign-in-3",
+    element: <SignIn3Custom />
   },
 
   // Landing Page (public)
