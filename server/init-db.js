@@ -27,7 +27,7 @@ async function initializeDatabase() {
       VALUES ($1, $2, $3)
       ON CONFLICT (email) DO NOTHING;
     `,
-    ['raven@gmail.com', 'raven@gmail.com', 'admin'],
+    ['raven@gmail.com', 'raven@gmail.com', 'Admin'],
   )
 
   const result = await pool.query('SELECT email, role FROM users WHERE email = $1', ['raven@gmail.com'])

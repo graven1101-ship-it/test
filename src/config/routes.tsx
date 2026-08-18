@@ -1,5 +1,7 @@
 import { lazy } from 'react'
 import { Navigate } from 'react-router-dom'
+import { ProtectedRoute } from '@/components/protected-route'
+import { ROLES, type Role } from '@/contexts/auth-context'
 
 // Lazy load components for better performance
 const Landing = lazy(() => import('@/app/landing/page'))
@@ -52,6 +54,10 @@ const AppearanceSettings = lazy(() => import('@/app/settings/appearance/page'))
 const NotificationSettings = lazy(() => import('@/app/settings/notifications/page'))
 const ConnectionSettings = lazy(() => import('@/app/settings/connections/page'))
 
+const ALL_ROLES: Role[] = [ROLES.ADMIN, ROLES.CASHIER, ROLES.ACCOUNTANT]
+const ADMIN_AND_ACCOUNTANT: Role[] = [ROLES.ADMIN, ROLES.ACCOUNTANT]
+const ADMIN_ONLY: Role[] = [ROLES.ADMIN]
+
 export interface RouteConfig {
   path: string
   element: React.ReactNode
@@ -60,113 +66,118 @@ export interface RouteConfig {
 
 export const routes: RouteConfig[] = [
   // Default route - redirect to sign-in-3
-  // Use relative path "auth/sign-in-3" instead of "/auth/sign-in-3" for basename compatibility
   {
     path: "/",
     element: <Navigate to="auth/sign-in-3" replace />
   },
 
-  // Landing Page
+  // Landing Page (public)
   {
     path: "/landing",
     element: <Landing />
   },
 
-  // Dashboard Routes
+  // Dashboard Routes (admin only)
   {
     path: "/dashboard",
-    element: <Dashboard />
+    element: <ProtectedRoute allowedRoles={ADMIN_ONLY}><Dashboard /></ProtectedRoute>
   },
   {
     path: "/dashboard-2",
-    element: <Dashboard2 />
+    element: <ProtectedRoute allowedRoles={ADMIN_ONLY}><Dashboard2 /></ProtectedRoute>
   },
 
-  // Application Routes
+  // Application Routes (all authenticated users)
   {
     path: "/mail",
-    element: <Mail />
+    element: <ProtectedRoute allowedRoles={ALL_ROLES}><Mail /></ProtectedRoute>
   },
   {
     path: "/tasks",
-    element: <Tasks />
+    element: <ProtectedRoute allowedRoles={ALL_ROLES}><Tasks /></ProtectedRoute>
   },
   {
     path: "/chat",
-    element: <Chat />
+    element: <ProtectedRoute allowedRoles={ALL_ROLES}><Chat /></ProtectedRoute>
   },
   {
     path: "/calendar",
-    element: <Calendar />
+    element: <ProtectedRoute allowedRoles={ALL_ROLES}><Calendar /></ProtectedRoute>
   },
 
-  // Content Pages
+  // Content Pages (admin only)
   {
     path: "/users",
-    element: <Users />
+    element: <ProtectedRoute allowedRoles={ADMIN_ONLY}><Users /></ProtectedRoute>
   },
   {
     path: "/faqs",
-    element: <FAQs />
+    element: <ProtectedRoute allowedRoles={ALL_ROLES}><FAQs /></ProtectedRoute>
   },
   {
     path: "/pricing",
-    element: <Pricing />
+    element: <ProtectedRoute allowedRoles={ALL_ROLES}><Pricing /></ProtectedRoute>
   },
+
+  // Finance Modules (admin + accountant)
   {
     path: "/general-ledger",
-    element: <GeneralLedger />
+    element: <ProtectedRoute allowedRoles={ADMIN_AND_ACCOUNTANT}><GeneralLedger /></ProtectedRoute>
   },
   {
     path: "/accounts-payable",
-    element: <AccountsPayable />
+    element: <ProtectedRoute allowedRoles={ADMIN_AND_ACCOUNTANT}><AccountsPayable /></ProtectedRoute>
   },
   {
     path: "/accounts-receivable",
-    element: <AccountsReceivable />
+    element: <ProtectedRoute allowedRoles={ADMIN_AND_ACCOUNTANT}><AccountsReceivable /></ProtectedRoute>
   },
   {
     path: "/disbursement-management",
-    element: <DisbursementManagement />
+    element: <ProtectedRoute allowedRoles={ADMIN_AND_ACCOUNTANT}><DisbursementManagement /></ProtectedRoute>
   },
   {
     path: "/collection-management",
-    element: <CollectionManagement />
+    element: <ProtectedRoute allowedRoles={ADMIN_AND_ACCOUNTANT}><CollectionManagement /></ProtectedRoute>
   },
   {
     path: "/budget-management",
-    element: <BudgetManagement />
+    element: <ProtectedRoute allowedRoles={ADMIN_AND_ACCOUNTANT}><BudgetManagement /></ProtectedRoute>
   },
   {
     path: "/cash-management",
-    element: <CashManagement />
+    element: <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.ACCOUNTANT, ROLES.CASHIER]}><CashManagement /></ProtectedRoute>
   },
+
+  // Role-specific Portals
   {
     path: "/cashier",
-    element: <Cashier />
+    element: <ProtectedRoute allowedRoles={[ROLES.CASHIER, ROLES.ADMIN]}><Cashier /></ProtectedRoute>
   },
   {
     path: "/accountant",
-    element: <Accountant />
+    element: <ProtectedRoute allowedRoles={[ROLES.ACCOUNTANT]}><Accountant /></ProtectedRoute>
   },
   {
     path: "/admin",
-    element: <Admin />
+    element: <ProtectedRoute allowedRoles={ADMIN_ONLY}><Admin /></ProtectedRoute>
   },
+
+  // Account & Reporting (admin + accountant)
   {
     path: "/account-ss",
-    element: <AccountSs />
+    element: <ProtectedRoute allowedRoles={ADMIN_AND_ACCOUNTANT}><AccountSs /></ProtectedRoute>
   },
   {
     path: "/financial-reporting-analytics",
-    element: <FinancialReportingAnalytics />
+    element: <ProtectedRoute allowedRoles={ADMIN_AND_ACCOUNTANT}><FinancialReportingAnalytics /></ProtectedRoute>
   },
   {
     path: "/tax-management",
-    element: <TaxManagement />
+    element: <ProtectedRoute allowedRoles={ADMIN_AND_ACCOUNTANT}><TaxManagement /></ProtectedRoute>
   },
 
-  // Authentication Routes
+  // Authentication Routes (public)
   {
     path: "/auth/sign-in",
     element: <SignIn />
@@ -204,7 +215,7 @@ export const routes: RouteConfig[] = [
     element: <ForgotPassword3 />
   },
 
-  // Error Pages
+  // Error Pages (public)
   {
     path: "/errors/unauthorized",
     element: <Unauthorized />
@@ -226,30 +237,30 @@ export const routes: RouteConfig[] = [
     element: <UnderMaintenance />
   },
 
-  // Settings Routes
+  // Settings Routes (all authenticated users)
   {
     path: "/settings/user",
-    element: <UserSettings />
+    element: <ProtectedRoute allowedRoles={ALL_ROLES}><UserSettings /></ProtectedRoute>
   },
   {
     path: "/settings/account",
-    element: <AccountSettings />
+    element: <ProtectedRoute allowedRoles={ALL_ROLES}><AccountSettings /></ProtectedRoute>
   },
   {
     path: "/settings/billing",
-    element: <BillingSettings />
+    element: <ProtectedRoute allowedRoles={ADMIN_ONLY}><BillingSettings /></ProtectedRoute>
   },
   {
     path: "/settings/appearance",
-    element: <AppearanceSettings />
+    element: <ProtectedRoute allowedRoles={ALL_ROLES}><AppearanceSettings /></ProtectedRoute>
   },
   {
     path: "/settings/notifications",
-    element: <NotificationSettings />
+    element: <ProtectedRoute allowedRoles={ALL_ROLES}><NotificationSettings /></ProtectedRoute>
   },
   {
     path: "/settings/connections",
-    element: <ConnectionSettings />
+    element: <ProtectedRoute allowedRoles={ALL_ROLES}><ConnectionSettings /></ProtectedRoute>
   },
 
   // Catch-all route for 404

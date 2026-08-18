@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, useLocation } from 'react-router-dom'
 import { ThemeProvider } from '@/components/theme-provider'
 import { SidebarConfigProvider } from '@/contexts/sidebar-context'
+import { AuthProvider } from '@/contexts/auth-context'
 import { AppRouter } from '@/components/router/app-router'
 import { useEffect } from 'react'
 import { initGTM } from '@/utils/analytics'
@@ -27,12 +28,14 @@ function App() {
   return (
     <div className="font-sans antialiased" style={{ fontFamily: 'var(--font-inter)' }}>
       <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-        <SidebarConfigProvider>
-          <Router basename={basename}>
-            <ScrollToTop />
-            <AppRouter />
-          </Router>
-        </SidebarConfigProvider>
+        <AuthProvider>
+          <SidebarConfigProvider>
+            <Router basename={basename}>
+              <ScrollToTop />
+              <AppRouter />
+            </Router>
+          </SidebarConfigProvider>
+        </AuthProvider>
       </ThemeProvider>
     </div>
   )

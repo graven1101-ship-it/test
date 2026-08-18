@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { BaseLayout } from '@/components/layouts/base-layout'
 import { CashierHeader } from './components/cashier-header'
 import { CashierMetrics } from './components/cashier-metrics'
@@ -20,6 +21,8 @@ import type {
 } from './data/cashier-data'
 import { toast } from 'sonner'
 import { Toaster } from '@/components/ui/sonner'
+import { Wallet } from 'lucide-react'
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default function CashierPage() {
   const [shiftInfo, setShiftInfo] = useState<ShiftInfo>(INITIAL_SHIFT_INFO)
@@ -149,6 +152,21 @@ export default function CashierPage() {
 
         {/* Analytics Charts */}
         <CashierCharts />
+
+        {/* Cash Management Quick Access */}
+        <Link to="/cash-management" className="group block">
+          <Card className="transition-colors group-hover:border-primary/50 group-hover:shadow-md">
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <Wallet className="size-5 text-teal-600 dark:text-teal-400" />
+              </div>
+              <CardTitle className="text-base">Cash Management</CardTitle>
+              <CardDescription>
+                Bank accounts, receipts, disbursements, fund transfers, and cash forecasts
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </Link>
 
         {/* Transactions Table & Pending Queue */}
         <CashierTransactionsTable

@@ -34,7 +34,7 @@ async function initializeDatabase() {
       VALUES ($1, $2, $3)
       ON CONFLICT (email) DO NOTHING;
     `,
-    ['raven@gmail.com', 'raven@gmail.com', 'admin'],
+    ['raven@gmail.com', 'raven@gmail.com', 'Admin'],
   )
 }
 
@@ -62,7 +62,7 @@ app.post('/api/login', async (req, res) => {
       user: {
         id: user.id,
         email: user.email,
-        role: user.role,
+        role: user.role.charAt(0).toUpperCase() + user.role.slice(1),
       },
     })
   } catch (error) {

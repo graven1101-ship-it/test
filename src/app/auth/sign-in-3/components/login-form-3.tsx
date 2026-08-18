@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label"
 import { Logo } from "@/components/logo"
 import { useState, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { useAuth } from "@/contexts/auth-context"
+import type { Role } from "@/contexts/auth-context"
 import darkModeImage from "./darkMODE.jpg"
 
 const TEST_ADMIN_USER = {
@@ -87,6 +89,7 @@ export function LoginForm3({
   ...props
 }: React.ComponentProps<"div">) {
   const navigate = useNavigate()
+  const { login } = useAuth()
   const [email, setEmail] = useState(TEST_ADMIN_USER.email)
   const [password, setPassword] = useState(TEST_ADMIN_USER.password)
   const [error, setError] = useState("")
@@ -124,15 +127,14 @@ export function LoginForm3({
         throw new Error(data.message || "Invalid email or password.")
       }
 
-      localStorage.setItem(
-        "pms-finance-user",
-        JSON.stringify({
-          email: data.user.email,
-          role: data.user.role,
-        }),
-      )
+      login({ email: data.user.email, role: data.user.role as Role })
 
-      navigate("/admin")
+      const roleRoute: Record<string, string> = {
+        Admin: "/admin",
+        Cashier: "/cashier",
+        Accountant: "/accountant",
+      }
+      navigate(roleRoute[data.user.role] || "/admin")
     } catch (loginError) {
       const message = loginError instanceof Error ? loginError.message : "Login failed."
       setError(message)
