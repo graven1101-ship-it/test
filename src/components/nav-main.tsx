@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import { ChevronRight, type LucideIcon } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
 
@@ -37,6 +38,7 @@ export function NavMain({
   }[]
 }) {
   const location = useLocation()
+  const groupRef = React.useRef<HTMLDivElement>(null)
 
   // Check if any subitem is active to determine if parent should be open
   const shouldBeOpen = (item: typeof items[0]) => {
@@ -44,8 +46,24 @@ export function NavMain({
     return item.items?.some(subItem => location.pathname === subItem.url) || false
   }
 
+  // Center the clicked button vertically within the sidebar scroll container
+  const centerOnClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.currentTarget.scrollIntoView({
+      block: "center",
+      behavior: "smooth",
+    })
+  }
+
+  // Center the active item on page load / route change
+  React.useEffect(() => {
+    const activeEl = groupRef.current?.querySelector<HTMLElement>(
+      '[data-active="true"]'
+    )
+    activeEl?.scrollIntoView({ block: "center", behavior: "smooth" })
+  }, [location.pathname])
+
   return (
-    <SidebarGroup>
+    <SidebarGroup ref={groupRef}>
       <SidebarGroupLabel>{label}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
@@ -72,6 +90,7 @@ export function NavMain({
                           <SidebarMenuSubButton asChild className="cursor-pointer" isActive={location.pathname === subItem.url}>
                             <Link 
                               to={subItem.url}
+                              onClick={centerOnClick}
                               target={(item.title === "Auth Pages" || item.title === "Errors") ? "_blank" : undefined}
                               rel={(item.title === "Auth Pages" || item.title === "Errors") ? "noopener noreferrer" : undefined}
                             >
@@ -85,7 +104,7 @@ export function NavMain({
                 </>
               ) : (
                 <SidebarMenuButton asChild tooltip={item.title} className="cursor-pointer" isActive={location.pathname === item.url}>
-                  <Link to={item.url}>
+                  <Link to={item.url} onClick={centerOnClick}>
                     {item.icon && <item.icon />}
                     <span>{item.title}</span>
                   </Link>

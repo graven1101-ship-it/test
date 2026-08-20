@@ -15,6 +15,14 @@ import {
   CreditCard,
   LayoutTemplate,
   Users,
+  BadgeDollarSign,
+  Banknote,
+  HandCoins,
+  PieChart,
+  Wallet,
+  Landmark,
+  BarChart3,
+  CirclePercent,
 } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Logo } from "@/components/logo"
@@ -82,38 +90,56 @@ const data = {
         {
           title: "Accounts Receivable (AR)",
           url: "/accounts-receivable",
+          icon: BadgeDollarSign,
+          color: "text-emerald-600 dark:text-emerald-400",
         },
         {
           title: "Disbursement Management",
           url: "/disbursement-management",
+          icon: Banknote,
+          color: "text-red-600 dark:text-red-400",
         },
         {
           title: "Collection Management",
           url: "/collection-management",
+          icon: HandCoins,
+          color: "text-violet-600 dark:text-violet-400",
         },
         {
           title: "Budget Management",
           url: "/budget-management",
+          icon: PieChart,
+          color: "text-amber-600 dark:text-amber-400",
         },
         {
           title: "Cash Management",
           url: "/cash-management",
+          icon: Wallet,
+          color: "text-teal-600 dark:text-teal-400",
         },
         {
           title: "Cashier Terminal",
           url: "/cashier",
+          icon: Landmark,
+          color: "text-pink-600 dark:text-pink-400",
         },
         {
           title: "Financial Reporting & Analytics",
           url: "/financial-reporting-analytics",
+          icon: BarChart3,
+          color: "text-indigo-600 dark:text-indigo-400",
         },
         {
           title: "Tax Management",
           url: "/tax-management",
+          icon: CirclePercent,
+          color: "text-cyan-600 dark:text-cyan-400",
         },
         {
           title: "Account",
           url: "/account-ss",
+          icon: Users,
+          color: "text-rose-600 dark:text-rose-400",
         },
       ],
     },
