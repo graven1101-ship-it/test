@@ -59,11 +59,10 @@ export interface RouteConfig {
 }
 
 export const routes: RouteConfig[] = [
-  // Default route - redirect to sign-in-3
-  // Use relative path "auth/sign-in-3" instead of "/auth/sign-in-3" for basename compatibility
+  // Default route - redirect to the sign-in page
   {
     path: "/",
-    element: <Navigate to="auth/sign-in-3" replace />
+    element: <Navigate to="sign-in-3" replace />
   },
 
   // Landing Page
@@ -168,6 +167,10 @@ export const routes: RouteConfig[] = [
 
   // Authentication Routes
   {
+    path: "/sign-in-3",
+    element: <SignIn3 />
+  },
+  {
     path: "/auth/sign-in",
     element: <SignIn />
   },
@@ -178,6 +181,10 @@ export const routes: RouteConfig[] = [
   {
     path: "/auth/sign-in-3",
     element: <SignIn3 />
+  },
+  {
+    path: "/sign-up-3",
+    element: <SignUp3 />
   },
   {
     path: "/auth/sign-up",

@@ -24,7 +24,7 @@ export function LoginForm3({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8" onSubmit={handleSubmit}>
+          <form className="p-6 md:p-8" onSubmit={handleSubmit} noValidate>
             <div className="flex flex-col gap-6">
               <div className="flex justify-center mb-2">
                 <a href="/" className="flex items-center gap-2 font-medium">
@@ -40,7 +40,14 @@ export function LoginForm3({
               </div>
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="test@example.com" defaultValue="test@example.com" required />
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="raven@gmail.com"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  required
+                />
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
@@ -49,8 +56,15 @@ export function LoginForm3({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" defaultValue="password" required />
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  required
+                />
               </div>
+
               <Button type="submit" className="w-full cursor-pointer">
                 Login
               </Button>
